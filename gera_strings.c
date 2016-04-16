@@ -20,14 +20,70 @@
 */
 
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
 
-void Gera_strings(){
+//Gera strings aleatórias
+char* Gera_strings();
 
-return;
-}
+//Compara Crescente
+static int Compara_Norm(const void *a, const void *b);
 
-int main(){
+//Compara Descresencte
+static int Compara_Inver(const void *a, const void *b);
 
+int main(int argc, char* argv[]){
+
+  int N; //Numero de Strings a ser gerado
+
+  srand(time(NULL));
+
+  if (argc == 3){
+
+    N = atoi(argv[1]);
+
+    if(N < 0){
+
+      printf("\nERRO: numero invalido de strings;\n");
+
+    }else{
+
+      if (strcmp(argv[2], "norm") == 0){
+
+
+
+      }else if(strcmp(argv[2], "inver") == 0){
+
+
+
+      }else if(strcmp(argv[2], "aleat") == 0){
+
+
+
+      }else{
+
+        printf("\nERRO: ordem nao reconhecida como valida;\n");
+
+      }
+
+    }
+  }else{
+
+    printf("ERRO: Argumentos invalidos;\nFormato dos argumentos: gera_strings N ordem > entrada.txt\n");
+
+  }
 
   return 0;
+}
+
+char* Gera_strings(){
+
+}
+
+static int Compara_Norm(const void *a, const void *b){
+  return strcmp (*(char **) a, *(char **) b);
+}
+
+static int Compara_Inver(const void *a, const void *b){
+  return strcmp (*(char **) a, *(char **) b)*-1;
 }
