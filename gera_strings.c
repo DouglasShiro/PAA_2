@@ -22,19 +22,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdlib.h>
 
 //Gera strings aleatórias
-char* Gera_strings();
+char* GeraStrings();
 
 //Compara Crescente
-static int Compara_Norm(const void *a, const void *b);
+static int ComparaNorm(const void *a, const void *b);
 
 //Compara Descresencte
-static int Compara_Inver(const void *a, const void *b);
+static int ComparaInver(const void *a, const void *b);
 
 int main(int argc, char* argv[]){
 
   int N; //Numero de Strings a ser gerado
+  int i;
+  char **Entrada_strings;
+  char *string;
 
   srand(time(NULL));
 
@@ -48,17 +52,38 @@ int main(int argc, char* argv[]){
 
     }else{
 
+      Entrada_strings = (char**)calloc(N, sizeof(char*));
+
+      for (i = 0; i < N; i++){
+        string = GeraStrings();
+        Entrada_strings[i] = string;
+      }
+
       if (strcmp(argv[2], "norm") == 0){
+        //Ordena Strings Oderm Noraml para o arquivo de entradas gerado
+        qsort(Entrada_strings, N, sizeof(char*), ComparaNorm);
 
-
+        for (i = 0; i < N; i++){
+          printf("%d,%s\n",i , Entrada_strings[i]);
+          free(Entrada_strings[i]);
+        }
+        free(Entrada_strings);
 
       }else if(strcmp(argv[2], "inver") == 0){
+        //Ordena Strings Ordem Inversa para o arquivo de entradas gerado
+        qsort(Entrada_strings, N, sizeof(char*), ComparaInver);
 
-
+        for (i = 0; i < N; i++){
+          printf("%s\n", Entrada_strings[i]);
+          free(Entrada_strings[i]);
+        }
+        free(Entrada_strings);
 
       }else if(strcmp(argv[2], "aleat") == 0){
+        string = GeraStrings();
 
-
+        printf("%s\n", string);
+        free(string);
 
       }else{
 
@@ -69,21 +94,33 @@ int main(int argc, char* argv[]){
     }
   }else{
 
-    printf("ERRO: Argumentos invalidos;\nFormato dos argumentos: gera_strings N ordem > entrada.txt\n");
+    printf("\nERRO: Argumentos invalidos;\nFormato dos argumentos: gera_strings N ordem > entrada.txt\n");
 
   }
 
   return 0;
 }
 
-char* Gera_strings(){
+char* GeraStrings(){
+  int Max_string = 1 + rand()%100; //tamanho maximo da string de 100 caracteres
+  int i;
+  char *string; //string a ser gerada
 
+  string = (char*)calloc(Max_string+1, sizeof(char));
+
+  for(i = 0; i < Max_string; i++){
+    //gera caracteres aleatorios 97 = 'a' ~ 122 = 'z'
+    string[i] = 97 + rand()%26;
+  }
+  string[i]= '\0';
+
+return string;
 }
 
-static int Compara_Norm(const void *a, const void *b){
+static int ComparaNorm(const void *a, const void *b){
   return strcmp (*(char **) a, *(char **) b);
 }
 
-static int Compara_Inver(const void *a, const void *b){
+static int ComparaInver(const void *a, const void *b){
   return strcmp (*(char **) a, *(char **) b)*-1;
 }

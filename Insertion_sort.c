@@ -33,12 +33,14 @@ int main(){
       scanf("%d", &a[i]);
    }
 
+   //Algoritmo de Insertion Sort
 	 for(i = 1; i < N; i++){
 		 	temp = a[i];
 			j = i - 1;
 			while((j >= 0) && (temp < a[j])){
 					a[j+1] = a[j];
 					j = j - 1;
+          //Contagem de trocas feitas pelo algoritmo
 					contSwap++;
 			}
 			a[j+1] = temp;
