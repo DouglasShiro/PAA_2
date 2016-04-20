@@ -64,7 +64,7 @@ int main(int argc, char* argv[]){
         qsort(Entrada_strings, N, sizeof(char*), ComparaNorm);
 
         for (i = 0; i < N; i++){
-          printf("%d,%s\n",i , Entrada_strings[i]);
+          printf("%s\n",Entrada_strings[i]);
           free(Entrada_strings[i]);
         }
         free(Entrada_strings);

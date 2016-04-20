@@ -17,39 +17,55 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(){
- int T, contT = 0, N, i, j, temp;
- int a[10000];
- int contSwap = 0;
+  int     N = 0;
+  int     i, j;
+  int     conta_inversao = 0;
+  int     comp;
+  char    string[100];
+  char    aux[100];
+  char**  temp = NULL;
+  char**  entrada_strings = NULL;
 
-	do{
-			scanf("%d", &T); //Numero de vezes que o algoritmo sera rodado
-	}while((T < 0) || (T >= 5));
+  while (scanf("%s", string) != EOF){
+    N++;
 
- while(contT != T){
-   scanf("%d", &N); //Numero de elementos a serem organizados
-	 for(i = 0; i < N; i++){
-      scanf("%d", &a[i]);
-   }
+    temp = (char**)realloc(entrada_strings, N * sizeof(char*));
 
-   //Algoritmo de Insertion Sort
-	 for(i = 1; i < N; i++){
-		 	temp = a[i];
-			j = i - 1;
-			while((j >= 0) && (temp < a[j])){
-					a[j+1] = a[j];
-					j = j - 1;
-          //Contagem de trocas feitas pelo algoritmo
-					contSwap++;
-			}
-			a[j+1] = temp;
-	 }
+    if (temp != NULL) {
+      entrada_strings = temp;
+      entrada_strings[N-1] = malloc(strlen(string) + 1);
+      strcpy(entrada_strings[N-1], string);
+    }
+    else {
+      free (entrada_strings);
+      puts ("Error (re)allocating memory");
+      exit (1);
+    }
+  }
 
-    printf("%d\n", contSwap);
-  	contSwap = 0;
-  	contT++;
- }
+  //Algoritmo de Insertion Sort
+  for(i = 1; i < N; i++){
+   	strcpy(aux, entrada_strings[i]);
+  	j = i - 1;
+    comp = strcmp(aux, entrada_strings[j]);
+  	while((j >= 0) && (comp < 0)){
+  			strcpy(entrada_strings[j+1], entrada_strings[j]);
+  			j = j - 1;
+        //Contagem de trocas feitas pelo algoritmo
+  			conta_inversao++;
+  	}
+  	strcpy(entrada_strings[j+1], aux);
+  }
 
- return 0;
+  for(i = 0; i < N; i++){
+    printf("%s\n", entrada_strings[i]);
+    free(entrada_strings[i]);
+  }
+  printf("%d\n", conta_inversao);
+
+  free(entrada_strings);
+  return 0;
 }
