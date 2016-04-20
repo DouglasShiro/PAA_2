@@ -10,9 +10,9 @@
 *   <comando> Merge_sort < entrada.txt > saida.txt
 *   <Complexidade> # melhor: Theta(nlogn) # medio: Theta(nlogn) # pior: Theta(nlog2n)
 */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void MERGE(int *A, int p, int q, int r){
     int n1 = q - p + 1;
@@ -62,6 +62,31 @@ void MERGESORT(int *A, int p, int r){
 }
 
 int main(){
+  int     N = 0;
+  int     i, j;
+  int     menor;
+  char    string[100];
+  char    aux[100];
+  char**  temp = NULL;
+  char**  entrada_strings = NULL;
+
+  while (scanf("%s", string) != EOF){
+    N++;
+
+    temp = (char**)realloc(entrada_strings, N * sizeof(char*));
+
+    if (temp != NULL) {
+      entrada_strings = temp;
+      entrada_strings[N-1] = malloc(100 + 1);
+      strcpy(entrada_strings[N-1], string);
+    }
+    else {
+      free (entrada_strings);
+      puts ("Error (re)allocating memory");
+      exit (1);
+    }
+  }
+
 
   int A[100000]; /* Array a ser organizado*/
   int i, j, n; /* usado para inserir dados ddos e ser passado como final do vertor*/

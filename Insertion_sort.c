@@ -23,7 +23,6 @@ int main(){
   int     N = 0;
   int     i, j;
   int     conta_inversao = 0;
-  int     comp;
   char    string[100];
   char    aux[100];
   char**  temp = NULL;
@@ -36,7 +35,7 @@ int main(){
 
     if (temp != NULL) {
       entrada_strings = temp;
-      entrada_strings[N-1] = malloc(strlen(string) + 1);
+      entrada_strings[N-1] = malloc(100 + 1);
       strcpy(entrada_strings[N-1], string);
     }
     else {
@@ -50,10 +49,10 @@ int main(){
   for(i = 1; i < N; i++){
    	strcpy(aux, entrada_strings[i]);
   	j = i - 1;
-    comp = strcmp(aux, entrada_strings[j]);
-  	while((j >= 0) && (comp < 0)){
-  			strcpy(entrada_strings[j+1], entrada_strings[j]);
-  			j = j - 1;
+
+  	while((j >= 0) && ((strcmp(aux, entrada_strings[j])) < 0)){
+        strcpy(entrada_strings[j+1], entrada_strings[j]);
+    		j = j - 1;
         //Contagem de trocas feitas pelo algoritmo
   			conta_inversao++;
   	}
@@ -61,8 +60,7 @@ int main(){
   }
 
   for(i = 0; i < N; i++){
-    printf("%s\n", entrada_strings[i]);
-    free(entrada_strings[i]);
+    printf("%s\n",entrada_strings[i]);
   }
   printf("%d\n", conta_inversao);
 
