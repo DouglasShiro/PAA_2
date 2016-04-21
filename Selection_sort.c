@@ -16,8 +16,8 @@
 
 int main(){
   int     N = 0;
-  int     i, j;
   int     menor;
+  int     i, j;
   char    string[100];
   char    aux[100];
   char**  temp = NULL;

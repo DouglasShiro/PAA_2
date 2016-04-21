@@ -14,47 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Funcoes de Merge
-void MERGE(char **entrada_strings, int p, int q, int r);
-void MERGESORT(char **entrada_strings, int p, int r);
-
-int main(){
-  int     N = 0;
-  int     i, j;
-  char    string[100];
-  char**  temp = NULL;
-  char**  entrada_strings = NULL;
-
-  while (scanf("%s", string) != EOF){
-    N++;
-
-    temp = (char**)realloc(entrada_strings, N * sizeof(char*));
-
-    if (temp != NULL) {
-      entrada_strings = temp;
-      entrada_strings[N-1] = malloc(100 + 1);
-      strcpy(entrada_strings[N-1], string);
-    }
-    else {
-      free (entrada_strings);
-      puts ("Error (re)allocating memory");
-      exit (1);
-    }
-  }
-
-  //Algoritmo Merge sort
-  i = 0;
-  /*Durante execucao no linux Ubuntu eh necessario digitar ctrl+d para indicar o EOF no terminal*/
-  j = i-1;
-
-  MERGESORT(entrada_strings, 0, j);
-
-  for(i = 0; i <= j; i++){
-      printf("%s ", entrada_strings[i]);
-  }
-
-return 0;
-}
 
 void MERGE(char **entrada_strings, int p, int q, int r){
     int n1 = q - p + 1;
@@ -70,8 +29,8 @@ void MERGE(char **entrada_strings, int p, int q, int r){
     for (j = 0; j < n2; j++){
         strcpy(R[j], entrada_strings[q+j+1]);
     }
-    strcpy(L[i], "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-    strcpy(R[j], "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+    strcpy(L[i], "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+    strcpy(R[j], "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
 
     i = 0;
     j = 0;
@@ -101,4 +60,39 @@ void MERGESORT(char **entrada_strings, int p, int r){
       MERGE(entrada_strings, p, q, r);
     }
     return;
+}
+
+int main(){
+  int     N = 0;
+  int     i;
+  char    string[100];
+  char**  temp = NULL;
+  char**  entrada_strings = NULL;
+
+  while (scanf("%s", string) != EOF){
+    N++;
+
+    temp = (char**)realloc(entrada_strings, N * sizeof(char*));
+
+    if (temp != NULL) {
+      entrada_strings = temp;
+      entrada_strings[N-1] = malloc(100 + 1);
+      strcpy(entrada_strings[N-1], string);
+    }
+    else {
+      free (entrada_strings);
+      puts ("Error (re)allocating memory");
+      exit (1);
+    }
+  }
+
+  //Algoritmo Merge sort
+
+  MERGESORT(entrada_strings, 0, N-1);
+
+  for(i = 0; i < N; i++){
+    printf("%s\n", entrada_strings[i]);
+  }
+  free(entrada_strings);
+return 0;
 }

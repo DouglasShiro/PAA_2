@@ -50,5 +50,9 @@ int main(){
       }
     }
   }
+
+  for(i = 0; i < N; i++){
+    printf("%s\n", entrada_strings[i]);
+  }
   return 0;
 }

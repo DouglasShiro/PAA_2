@@ -61,5 +61,10 @@ int main(){
       ++i;
     }
   }
+
+  for(i = 0; i < N; i++){
+    printf("%s\n", entrada_strings[i]);
+  }
+  free(entrada_strings);
   return 0;
 }
