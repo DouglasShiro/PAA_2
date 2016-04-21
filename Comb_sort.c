@@ -16,12 +16,10 @@
 
 int main(){
   float   shrink_factor = 1.247330950102979;
-  int     gap = size;
+  int     gap;
   int     swapped = 1;
-  int     swap;
   int     N = 0;
-  int     i, j;
-  int     menor;
+  int     i;
   char    string[100];
   char    aux[100];
   char**  temp = NULL;
@@ -45,6 +43,7 @@ int main(){
   }
 
   //Algoritmo Comb sort
+  gap = N;
   while ((gap > 1) || swapped) {
     if (gap > 1){
       gap = gap / shrink_factor;
@@ -54,9 +53,9 @@ int main(){
 
     while ((gap + i) < N) {
       if (strcmp(entrada_strings[i], entrada_strings[i + gap]) > 0) {
-        strcpy(swap, entrada_strings[i]);
-        strcpy(entrada_strings[i], arr[i + gap]);
-        strcpy(entrada_strings[i + gap], swap);
+        strcpy(aux, entrada_strings[i]);
+        strcpy(entrada_strings[i], entrada_strings[i + gap]);
+        strcpy(entrada_strings[i + gap], aux);
         swapped = 1;
       }
       ++i;

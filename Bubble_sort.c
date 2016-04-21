@@ -12,28 +12,43 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void Bubble_sort(){
-  int vector[10] = {'vetor'};
+int main(){
+  int     N = 0;
+  int     i, j;
+  char    string[100];
+  char    aux[100];
+  char**  temp = NULL;
+  char**  entrada_strings = NULL;
 
-  int tamanho = 10;
-  int aux;
-  int i, j;
+  while (scanf("%s", string) != EOF){
+    N++;
 
-  for(i = tamanho-1; i >= 1; i--){
+    temp = (char**)realloc(entrada_strings, N * sizeof(char*));
+
+    if (temp != NULL) {
+      entrada_strings = temp;
+      entrada_strings[N-1] = malloc(100 + 1);
+      strcpy(entrada_strings[N-1], string);
+    }
+    else {
+      free (entrada_strings);
+      puts ("Error (re)allocating memory");
+      exit (1);
+    }
+  }
+
+  //Algoritmo Bubble sort
+  for(i = N-1; i >= 1; i--){
     for(j = 0; j < i; j++){
-      if(vector[j] > vector[j+1]){
-        aux = vector[j];
-        vector[j] = vector[j+1];
-        vector[j+1] = aux;
+      if(strcmp(entrada_strings[j], entrada_strings[j+1]) > 0){
+        strcpy(aux, entrada_strings[j]);
+        strcpy(entrada_strings[j], entrada_strings[j+1]);
+        strcpy(entrada_strings[j+1], aux);
       }
     }
   }
-return;
-}
-
-int main(){
-
-
   return 0;
 }

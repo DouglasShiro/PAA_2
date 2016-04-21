@@ -14,59 +14,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-void MERGE(int *A, int p, int q, int r){
-    int n1 = q - p + 1;
-    int n2 = r - q;
-    int L[n1+1];
-    int R[n2+1];
-    int i, j, k;
-
-    for (i = 0; i < n1; i++){
-        L[i] = A[p+i];
-    }
-
-    for (j = 0; j < n2; j++){
-        R[j] = A[q+j+1];
-    }
-    L[i]= 2147483646;
-    R[j] = 2147483646;
-
-    i = 0;
-    j = 0;
-
-    for (k = p; k <= r; k++){
-        if(L[i] <= R[j]){
-            A[k] = L[i++];
-        }else {
-            A[k] = R[j++];
-        }
-    }
-
-    return;
-
-}
-
-void MERGESORT(int *A, int p, int r){
-    int q;
-
-    if (p < r){
-      q = (p + r)/2;
-      /*Merge da metade da esquerda*/
-      MERGESORT(A, p, q);
-      /*Merge da metade da direita*/
-      MERGESORT(A, q+1, r);
-      /*Merge das partes*/
-      MERGE(A, p, q, r);
-    }
-    return;
-}
+//Funcoes de Merge
+void MERGE(char **entrada_strings, int p, int q, int r);
+void MERGESORT(char **entrada_strings, int p, int r);
 
 int main(){
   int     N = 0;
   int     i, j;
-  int     menor;
   char    string[100];
-  char    aux[100];
   char**  temp = NULL;
   char**  entrada_strings = NULL;
 
@@ -87,24 +42,63 @@ int main(){
     }
   }
 
-
-  int A[100000]; /* Array a ser organizado*/
-  int i, j, n; /* usado para inserir dados ddos e ser passado como final do vertor*/
-
+  //Algoritmo Merge sort
   i = 0;
-
   /*Durante execucao no linux Ubuntu eh necessario digitar ctrl+d para indicar o EOF no terminal*/
-  while (scanf("%d  ", &n) != EOF){
-      A[i++] = n;
-  }
-
   j = i-1;
 
-  MERGESORT(A, 0, j);
+  MERGESORT(entrada_strings, 0, j);
 
   for(i = 0; i <= j; i++){
-      printf("%d ", A[i]);
+      printf("%s ", entrada_strings[i]);
   }
 
 return 0;
+}
+
+void MERGE(char **entrada_strings, int p, int q, int r){
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    char L[n1+1][100];
+    char R[n2+1][100];
+    int i, j, k;
+
+    for (i = 0; i < n1; i++){
+        strcpy(L[i], entrada_strings[p+i]);
+    }
+
+    for (j = 0; j < n2; j++){
+        strcpy(R[j], entrada_strings[q+j+1]);
+    }
+    strcpy(L[i], "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+    strcpy(R[j], "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+
+    i = 0;
+    j = 0;
+
+    for (k = p; k <= r; k++){
+        if(strcmp(L[i], R[j]) <= 0){
+            strcpy(entrada_strings[k], L[i++]);
+        }else {
+            strcpy(entrada_strings[k], R[j++]);
+        }
+    }
+
+    return;
+
+}
+
+void MERGESORT(char **entrada_strings, int p, int r){
+    int q;
+
+    if (p < r){
+      q = (p + r)/2;
+      /*Merge da metade da esquerda*/
+      MERGESORT(entrada_strings, p, q);
+      /*Merge da metade da direita*/
+      MERGESORT(entrada_strings, q+1, r);
+      /*Merge das partes*/
+      MERGE(entrada_strings, p, q, r);
+    }
+    return;
 }
