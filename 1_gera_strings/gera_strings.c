@@ -87,7 +87,7 @@ int main(int argc, char* argv[]){
           free(Entrada_strings[i]);
         }
         free(Entrada_strings);
-        
+
       }else{
 
         printf("\nERRO: ordem nao reconhecida como valida;\n");
